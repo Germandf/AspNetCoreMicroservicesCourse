@@ -11,11 +11,11 @@ public class Order : EntityBase
     public required string EmailAddress { get; set; }
     public required string AddressLine { get; set; }
     public required string Country { get; set; }
-    public required string State { get; set; }
-    public required string ZipCode { get; set; }
-    public required string CardName { get; set; }
-    public required string CardNumber { get; set; }
-    public required string Expiration { get; set; }
-    public required string CVV { get; set; }
-    public required int PaymentMethod { get; set; }
+    public string State { get; set; }
+    public string ZipCode { get; set; }
+    public string CardName { get; set; }
+    public string CardNumber { get; set; }
+    public string Expiration { get; set; }
+    public string CVV { get; set; }
+    public int PaymentMethod { get; set; }
 }
