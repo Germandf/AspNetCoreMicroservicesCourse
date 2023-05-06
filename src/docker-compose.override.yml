@@ -17,6 +17,7 @@ services:
 
   discount.db:
     container_name: discount.db
+    restart: always
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin1234
@@ -26,12 +27,21 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
+  ordering.db:
+    container_name: ordering.db
+    restart: always
+    environment:
+      - SA_PASSWORD=yourStrong(!)Password
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+
   pgadmin:
     container_name: pgadmin
+    restart: always
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@aspnetrun.com
       - PGADMIN_DEFAULT_PASSWORD=admin1234
-    restart: always
     ports:
       - "5050:80"
     volumes:

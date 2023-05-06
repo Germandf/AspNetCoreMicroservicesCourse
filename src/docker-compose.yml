@@ -10,6 +10,9 @@ services:
   discount.db:
     image: postgres
 
+  ordering.db:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+
   pgadmin:
     image: dpage/pgadmin4
 
