@@ -95,3 +95,12 @@ services:
       - "DatabaseSettings__ConnectionString=Host=discount.db;Port=5432;Database=DiscountDb;User ID=admin;Password=admin1234;"
     ports:
       - "8003:80"
+
+  ordering.api:
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings__OrderingConnectionString=Data Source=ordering.db;Initial Catalog=OrderingDb;User ID=sa;Password=yourStrong(!)Password;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
+    ports:
+      - "8004:80"
+

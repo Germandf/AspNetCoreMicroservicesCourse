@@ -2,6 +2,7 @@
 
 public class OrderVm
 {
+    public required int Id { get; set; }
     public required string UserName { get; set; }
     public required decimal TotalPrice { get; set; }
     public required string FirstName { get; set; }
