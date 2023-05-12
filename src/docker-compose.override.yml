@@ -82,7 +82,8 @@ services:
       - "GrpcSettings__DiscountUrl=http://discount.grpc"
       - "EventBusSettings__HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
-      -  basket.db
+      - basket.db
+      - rabbitmq
     ports:
       - "8001:80"
 
@@ -92,7 +93,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings__ConnectionString=Host=discount.db;Port=5432;Database=DiscountDb;User ID=admin;Password=admin1234;"
     depends_on:
-      -  discount.db
+      - discount.db
     ports:
       - "8002:80"
 
@@ -101,6 +102,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings__ConnectionString=Host=discount.db;Port=5432;Database=DiscountDb;User ID=admin;Password=admin1234;"
+    depends_on:
+      - discount.db
     ports:
       - "8003:80"
 
@@ -110,6 +113,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings__OrderingConnectionString=Data Source=ordering.db;Initial Catalog=OrderingDb;User ID=sa;Password=yourStrong(!)Password;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
       - "EventBusSettings__HostAddress=amqp://guest:guest@rabbitmq:5672"
+    depends_on:
+      - ordering.db
+      - rabbitmq
     ports:
       - "8004:80"
 
