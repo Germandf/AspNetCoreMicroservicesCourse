@@ -37,7 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.Messages", "Buildi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{7D0805A8-F8FF-4AD6-970A-A14E5D9EE490}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotApiGateway", "ApiGateways\OcelotApiGateway\OcelotApiGateway.csproj", "{9CEB9C85-AAFC-4AE4-AC70-3262BD5CD36E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotApiGateway", "ApiGateways\OcelotApiGateway\OcelotApiGateway.csproj", "{9CEB9C85-AAFC-4AE4-AC70-3262BD5CD36E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.Aggregator", "ApiGateways\Shopping.Aggregator\Shopping.Aggregator.csproj", "{AF69D3A1-140E-42DC-BFE0-DBE2ED6F1529}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +91,10 @@ Global
 		{9CEB9C85-AAFC-4AE4-AC70-3262BD5CD36E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CEB9C85-AAFC-4AE4-AC70-3262BD5CD36E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CEB9C85-AAFC-4AE4-AC70-3262BD5CD36E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF69D3A1-140E-42DC-BFE0-DBE2ED6F1529}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF69D3A1-140E-42DC-BFE0-DBE2ED6F1529}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF69D3A1-140E-42DC-BFE0-DBE2ED6F1529}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF69D3A1-140E-42DC-BFE0-DBE2ED6F1529}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,6 +114,7 @@ Global
 		{D9DAD47E-60AB-44F8-874A-53839B0826FD} = {1400751C-C750-4EC6-8121-26A08ED66BAC}
 		{7E54C94C-3837-4924-8859-6176DB1779F4} = {D8A2FB55-3FB1-420A-9953-3BFF03BE25EB}
 		{9CEB9C85-AAFC-4AE4-AC70-3262BD5CD36E} = {7D0805A8-F8FF-4AD6-970A-A14E5D9EE490}
+		{AF69D3A1-140E-42DC-BFE0-DBE2ED6F1529} = {7D0805A8-F8FF-4AD6-970A-A14E5D9EE490}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7B3F7285-DACB-456A-B31A-DDD9D3E43915}
