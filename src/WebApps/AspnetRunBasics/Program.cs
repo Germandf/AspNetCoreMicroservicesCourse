@@ -1,50 +1,27 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AspnetRunBasics.Data;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using AspnetRunBasics.Repositories;
+using Microsoft.EntityFrameworkCore;
 
-namespace AspnetRunBasics
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var host = CreateHostBuilder(args).Build();
-            SeedDatabase(host);
-            host.Run();
-        }
+var builder = WebApplication.CreateBuilder(args);
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+builder.Services.AddDbContext<AspnetRunContext>(x =>
+    x.UseSqlServer(builder.Configuration.GetConnectionString("AspnetRunConnection")));
 
-        private static void SeedDatabase(IHost host)
-        {
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
 
-                try
-                {
-                    var aspnetRunContext = services.GetRequiredService<AspnetRunContext>();
-                    AspnetRunContextSeed.SeedAsync(aspnetRunContext, loggerFactory).Wait();
-                }
-                catch (Exception exception)
-                {
-                    var logger = loggerFactory.CreateLogger<Program>();
-                    logger.LogError(exception, "An error occurred seeding the DB.");
-                }
-            }
-        }
-    }
-}
+builder.Services.AddRazorPages();
+
+var app = builder.Build();
+
+app.UseDeveloperExceptionPage();
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+app.UseAuthorization();
+app.MapRazorPages();
+app.SeedDatabase();
+
+app.Run();
