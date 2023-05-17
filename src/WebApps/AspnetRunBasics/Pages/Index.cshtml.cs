@@ -1,38 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AspnetRunBasics.Repositories;
+﻿using AspnetRunBasics.Models;
+using AspnetRunBasics.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AspnetRunBasics.Pages
+namespace AspnetRunBasics.Pages;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly ICatalogService _catalogService;
+    private readonly IBasketService _basketService;
+
+    public IndexModel(ICatalogService catalogService, IBasketService basketService)
     {
-        private readonly IProductRepository _productRepository;
-        private readonly ICartRepository _cartRepository;
+        _catalogService = catalogService;
+        _basketService = basketService;
+    }
 
-        public IndexModel(IProductRepository productRepository, ICartRepository cartRepository)
+    public IEnumerable<CatalogModel> ProductList { get; set; } = new List<CatalogModel>();
+
+    public async Task<IActionResult> OnGetAsync()
+    {
+        ProductList = await _catalogService.GetCatalogs();
+        return Page();
+    }
+
+    public async Task<IActionResult> OnPostAddToCartAsync(string productId)
+    {
+        var product = await _catalogService.GetCatalog(productId);
+
+        var userName = "german";
+        var basket = await _basketService.GetBasket(userName);
+
+        basket.Items.Add(new BasketItemModel
         {
-            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
-            _cartRepository = cartRepository ?? throw new ArgumentNullException(nameof(cartRepository));
-        }
+            ProductId = productId,
+            ProductName = product.Name,
+            Price = product.Price,
+            Quantity = 1,
+            Color = "Black"
+        });
 
-        public IEnumerable<Entities.Product> ProductList { get; set; } = new List<Entities.Product>();
-
-        public async Task<IActionResult> OnGetAsync()
-        {
-            ProductList = await _productRepository.GetProducts();
-            return Page();
-        }
-
-        public async Task<IActionResult> OnPostAddToCartAsync(int productId)
-        {
-            //if (!User.Identity.IsAuthenticated)
-            //    return RedirectToPage("./Account/Login", new { area = "Identity" });
-
-            await _cartRepository.AddItem("test", productId);
-            return RedirectToPage("Cart");
-        }
+        return RedirectToPage("Cart");
     }
 }
